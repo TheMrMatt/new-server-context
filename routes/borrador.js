@@ -8,7 +8,7 @@ const { borrador, getBorrador, getBorradorId, deleteBorrador, updateBorrador } =
 
 router
     .route('/')
-    .post(isLoggedIn, isAutorizated, upload.single('img'), validateNota, borrador)
+    .post(upload.single('img'), borrador)
     ;
 
 router
@@ -17,9 +17,9 @@ router
     ;
 router
     .route('/:id')
-    .get(isLoggedIn, isAutor, getBorradorId)
-    .put(upload.single('img'), isAutor, validateNota, updateBorrador)
-    .delete(isLoggedIn, isAutor, isAutorizated, deleteBorrador) //agregar middleware para que solo los admins puedan eliminar
+    .get(getBorradorId)
+    .put(upload.single('img'), updateBorrador)
+    .delete(deleteBorrador) //agregar middleware para que solo los admins puedan eliminar
     ;
 
 module.exports = router;

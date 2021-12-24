@@ -9,7 +9,7 @@ const { isLoggedIn, isAutor, validateNota, isAutorizated } = require('../middlew
 router
         .route('/portadas')
         .get(getPortadas)
-        .post(isLoggedIn, isAutorizated, addPortada)
+        .post(addPortada)
         ;
 
 
@@ -18,9 +18,9 @@ router.route('/portadas/:categoriaId')
 
 router
         .route('/:id')
-        .get(isLoggedIn, isAutorizated, showPortada)
-        .put(isLoggedIn, isAutorizated, updatePortada)
-        .delete(isLoggedIn, isAutorizated, deletePortada) //agregar middleware para que solo los admins puedan eliminar
+        .get(showPortada)
+        .put(updatePortada)
+        .delete(deletePortada) //agregar middleware para que solo los admins puedan eliminar
         ;
 
 module.exports = router;
