@@ -1,15 +1,16 @@
 const Nota = require('./models/notas');
-const {notaSchema} = require('./Schemas');
+const { notaSchema } = require('./Schemas');
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         //req.session.returnTo = req.originalUrl
-        console.log('error, You must be signed in first!', req.isAuthenticated());
+
         return res.status(400).json({
-            success:false,
+            success: false,
             error: 'You need to be log in first'
         });
     }
+    console.log('error, You must be signed in first!', req.isAuthenticated());
     next();
 }
 
@@ -18,7 +19,7 @@ module.exports.validateReview = (req, res, next) => {
     if (error) {
         const msg = error.details.map(el => el.message).join(',')
         return res.status(400).json({
-            success:false,
+            success: false,
             error: `${msg}`
         });
     } else {
@@ -42,7 +43,7 @@ module.exports.validateNota = (req, res, next) => {
     if (error) {
         const msg = error.details.map(el => el.message).join(',')
         return res.status(400).json({
-            success:false,
+            success: false,
             error: `${msg}`
         });
     } else {
@@ -59,11 +60,11 @@ module.exports.isAutor = async (req, res, next) => {
     next();
 }
 
-module.exports.isAutorizated = async (req, res, next) =>{
+module.exports.isAutorizated = async (req, res, next) => {
 
-    if(req.user.tipoUsuario === 'normal'){
+    if (req.user.tipoUsuario === 'normal') {
         return res.status(401).json({
-            success:false,
+            success: false,
             error: 'You need to be authorizated'
         });
     }

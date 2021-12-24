@@ -21,7 +21,7 @@ router
 
 router
         .route('/:id')
-        .get(isLoggedIn, showNota)
+        .get(showNota)
         .put(upload.single('img'), isLoggedIn, isAutorizated, validateNota, updateNota)
         .delete(isLoggedIn, isAutorizated, deleteNota) //agregar middleware para que solo los admins puedan eliminar
         ;
