@@ -106,7 +106,7 @@ exports.addNota = async (req, res, next) => {
         } else {
             return res.status(500).json({
                 success: false,
-                error: error
+                error: 'Server Error'
             })
         }
     }
