@@ -34,7 +34,7 @@ const sessionConfig = {
   }),
   name: 'session',
   secret: 'secret',
-  resave: false,
+  resave: true,
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
