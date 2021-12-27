@@ -4,7 +4,7 @@ const { notaSchema } = require('./Schemas');
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         //req.session.returnTo = req.originalUrl
-
+        console.log('error, You must be signed in first!', req.isAuthenticated());
         return res.status(400).json({
             success: false,
             error: 'You need to be log in first'
