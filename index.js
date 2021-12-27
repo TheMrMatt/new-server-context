@@ -19,6 +19,7 @@ connectDB();
 
 require('./config/passport')(passport);
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
@@ -36,6 +37,7 @@ const sessionConfig = {
   secret: 'secret',
   resave: true,
   saveUninitialized: true,
+  proxy: true,
   cookie: {
     httpOnly: true,
     //secure: true,
@@ -44,6 +46,7 @@ const sessionConfig = {
   }
 }
 
+app.enable('trust proxy');
 app.use(session(sessionConfig));
 
 
