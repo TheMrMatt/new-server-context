@@ -9,7 +9,7 @@ const { isLoggedIn, isAutor, validateNota, isAutorizated } = require('../middlew
 
 router
         .route('/all')
-        .get(isLoggedIn, getNotas)
+        .get(getNotas)
         .post(upload.single('img'), addNota)
 
         ;
@@ -21,7 +21,7 @@ router
 
 router
         .route('/:id')
-        .get(showNota)
+        .get(isLoggedIn, showNota)
         .put(upload.single('img'), updateNota)
         .delete(deleteNota) //agregar middleware para que solo los admins puedan eliminar
         ;
