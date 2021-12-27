@@ -33,7 +33,7 @@ exports.getNotas = async (req, res, next) => {
         const notas = await Nota.find({});
 
 
-        console.log('asda', notas)
+
 
         return res.status(200).json({
             success: true,
@@ -42,7 +42,7 @@ exports.getNotas = async (req, res, next) => {
         });
 
     } catch (err) {
-        console.log(err);
+
         return res.status(500).json({
             success: false,
             error: 'Server Error'
@@ -58,7 +58,7 @@ exports.getNotasTags = async (req, res, next) => {
         const notas = await Nota.find();
 
 
-        console.log('asda', notas)
+
 
         return res.status(200).json({
             success: true,
@@ -81,6 +81,7 @@ exports.addNota = async (req, res, next) => {
 
     try {
         const nota = new Nota(req.body);
+        console.log('user', req.user);
         nota.autor = req.user._id;
         nota.img = { url: req.file.path, filename: req.file.filename };
         var dat = new Date().toISOString().
