@@ -10,7 +10,7 @@ const { isLoggedIn, isAutor, validateNota, isAutorizated } = require('../middlew
 router
         .route('/all')
         .get(getNotas)
-        .post(upload.single('img'), addNota)
+        .post(isLoggedIn, upload.single('img'), addNota)
 
         ;
 
