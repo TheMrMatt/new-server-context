@@ -13,6 +13,7 @@ const dbUrl = process.env.MONGO_URI || 'mongodb://localhost:27017/yelp-camp';
 const MongoStore = require('connect-mongo');
 const path = require('path');
 
+
 connectDB();
 
 
@@ -58,10 +59,10 @@ app.use('/', portadaRoutes)
 app.use('/nota', notaRoutes)
 app.use('/borrador', borradorRoutes)
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+  app.use(express.static('build'));
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
   });
 }
 
