@@ -18,7 +18,7 @@ connectDB();
 
 
 
-require('./config/passport')(passport);
+
 const app = express();
 
 app.use(cors());
@@ -52,7 +52,7 @@ app.use(session(sessionConfig));
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+require('./config/passport')(passport);
 
 app.use('/', userRoutes)
 app.use('/', portadaRoutes)

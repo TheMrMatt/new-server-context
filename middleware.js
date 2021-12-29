@@ -14,28 +14,6 @@ module.exports.isLoggedIn = (req, res, next) => {
     next();
 }
 
-module.exports.validateReview = (req, res, next) => {
-    const { error } = ReviewSchema.validate(req.body, { abortEarly: false, allowUnknown: true });
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',')
-        return res.status(400).json({
-            success: false,
-            error: `${msg}`
-        });
-    } else {
-        next();
-    }
-}
-
-module.exports.isReviewAuthor = async (req, res, next) => {
-    const { id, reviewId } = req.params;
-    const review = await Review.findById(reviewId);
-    if (!review.author.equals(req.user.id)) {
-        req.flash('error', 'You do not have permission to do that!');
-        return res.redirect(`/campgrounds/${id}`);
-    }
-    next();
-}
 
 module.exports.validateNota = (req, res, next) => {
     const { error } = notaSchema.validate(req.body, { abortEarly: false, allowUnknown: true });
