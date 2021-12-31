@@ -3,12 +3,12 @@ const router = express.Router();
 const multer = require('multer');
 const { storage } = require('../cloudinary');
 const upload = multer({ storage: storage });
-const { isLoggedIn, isAutor, validateNota, isAutorizated } = require('../middleware');
+const { isLoggedIn, isAutor, validateNota, isAutorizated, authenticateToken } = require('../middleware');
 const { borrador, getBorrador, getBorradorId, deleteBorrador, updateBorrador } = require('../controllers/borrador');
 
 router
     .route('/')
-    .post(upload.single('img'), borrador)
+    .post(authenticateToken, isAutorizated, upload.single('img'), borrador)
     ;
 
 router
@@ -17,9 +17,9 @@ router
     ;
 router
     .route('/:id')
-    .get(getBorradorId)
-    .put(upload.single('img'), updateBorrador)
-    .delete(deleteBorrador) //agregar middleware para que solo los admins puedan eliminar
+    .get(authenticateToken, isAutorizated, getBorradorId)
+    .put(authenticateToken, isAutorizated, upload.single('img'), updateBorrador)
+    .delete(authenticateToken, isAutorizated, deleteBorrador) //agregar middleware para que solo los admins puedan eliminar
     ;
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { getCategoria, addPortada, showPortada, deletePortada, updatePortada, getPortadas } = require('../controllers/portadas');
-const { isLoggedIn, isAutor, validateNota, isAutorizated } = require('../middleware');
+const { isLoggedIn, isAutor, validateNota, isAutorizated, authenticateToken } = require('../middleware');
 
 
 
@@ -19,7 +19,7 @@ router.route('/portadas/:categoriaId')
 router
         .route('/:id')
         .get(showPortada)
-        .put(updatePortada)
+        .put(authenticateToken, isAutorizated, updatePortada)
         .delete(deletePortada) //agregar middleware para que solo los admins puedan eliminar
         ;
 

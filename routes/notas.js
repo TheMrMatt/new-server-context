@@ -4,13 +4,13 @@ const { getNotas, addNota, showNota, deleteNota, updateNota, getLastNotas } = re
 const multer = require('multer');
 const { storage } = require('../cloudinary');
 const upload = multer({ storage: storage });
-const { isLoggedIn, isAutor, validateNota, isAutorizated } = require('../middleware');
+const { isLoggedIn, isAutor, validateNota, isAutorizated, authenticateToken } = require('../middleware');
 
 
 router
         .route('/all')
         .get(getNotas)
-        .post(upload.single('img'), addNota)
+        .post(authenticateToken, isAutorizated, upload.single('img'), addNota)
 
         ;
 
@@ -21,9 +21,9 @@ router
 
 router
         .route('/:id')
-        .get(isLoggedIn, showNota)
-        .put(upload.single('img'), updateNota)
-        .delete(deleteNota) //agregar middleware para que solo los admins puedan eliminar
+        .get(authenticateToken, showNota)
+        .put(authenticateToken, isAutorizated, upload.single('img'), updateNota)
+        .delete(authenticateToken, isAutorizated, deleteNota) //agregar middleware para que solo los admins puedan eliminar
         ;
 
 

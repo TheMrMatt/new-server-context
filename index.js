@@ -58,6 +58,7 @@ app.use('/', userRoutes)
 app.use('/', portadaRoutes)
 app.use('/nota', notaRoutes)
 app.use('/borrador', borradorRoutes)
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('build'));
 
